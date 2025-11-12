@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealPlate - Smart Food Delivery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --dark-grey: #1a1a1a;
+            --mid-grey: #2a2a2a;
+            --light-grey: #b0b0b0;
+            --white: #ffffff;
+            --neon-green: #00ff41;
+            --green-glow: rgba(0, 255, 65, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--mid-grey);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            text-shadow: 0 0 20px var(--green-glow);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 0.6rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn:hover {
+            background: var(--neon-green);
+            color: var(--black);
+            box-shadow: 0 0 20px var(--green-glow);
+        }
+
+        /* Views Container */
+        .view {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .view.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Landing Page */
+        .landing {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem 5%;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .hero-text {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-text h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            color: var(--white);
+        }
+
+        .hero-text .accent {
+            color: var(--neon-green);
+            text-shadow: 0 0 30px var(--green-glow);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--light-grey);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-image-card {
+            position: relative;
+            border: 3px solid var(--neon-green);
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--dark-grey);
+            transition: all 0.4s;
+            animation: float 3s ease-in-out infinite;
+            width: 100%;
+            aspect-ratio: 1;
+            box-shadow: 0 0 30px var(--green-glow);
+        }
+
+        .hero-image-card:nth-child(2) { animation-delay: 0.5s; }
+        .hero-image-card:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-image-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--green-glow);
+            border-color: var(--neon-green);
+        }
+
+        .hero-image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .access-section {
+            padding: 4rem 5%;
+            background: var(--dark-grey);
+            position: relative;
+        }
+
+        .access-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--black), transparent);
+        }
+
+        .access-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .access-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 20px var(--green-glow);
+            letter-spacing: 3px;
+        }
+
+        .access-subtitle {
+            color: var(--light-grey);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .role-selection {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .role-card {
+            background: var(--mid-grey);
+            padding: 2.5rem 1.5rem;
+            border: 2px solid var(--mid-grey);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--green-glow), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .role-card:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px var(--green-glow);
+        }
+
+        .role-card:hover::before {
+            opacity: 1;
+        }
+
+        .role-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .role-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--neon-green);
+            position: relative;
+            z-index: 1;
+        }
+
+        .role-card p {
+            color: var(--light-grey);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Customer View */
+        .customer-view {
+            padding: 2rem 5%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            color: var(--neon-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .menu-item {
+            background: var(--dark-grey);
+            border: 1px solid var(--mid-grey);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-color: var(--neon-green);
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: 200px;
+            background: var(--mid-grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .menu-item-desc {
+            color: var(--light-grey);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--neon-green);
+        }
+
+        .add-btn {
+            padding: 0.7rem 1.5rem;
+            background: var(--neon-green);
+            color: var(--black);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .add-btn:hover {
+            box-shadow: 0 0 20px var(--green-glow);
+            transform: scale(1.05);
+        }
+
+        .add-btn:disabled {
+            background: var(--mid-grey);
+            color: var(--light-grey);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .stock-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--neon-green);
+            color: var(--black);
+            font-weight: 700;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stock-badge.out {
+            background: #ff0040;
+            color: var(--white);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .out-of-stock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: #ff0040;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 0, 64, 0.5);
+        }
+
+        /* Cart */
+        .cart-icon {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--neon-green);
+            color: var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px var(--green-glow);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px var(--green-glow);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff0040;
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Admin View */
+        .admin-view {
+            padding: 2rem 5%;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--dark-grey);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--mid-grey);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--neon-green);
+            box-shadow: 0 5px 20px var(--green-glow);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--light-grey);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .inventory-table {
+            width: 100%;
+            background: var(--dark-grey);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--mid-grey);
+        }
+
+        .inventory-table th,
+        .inventory-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--mid-grey);
+        }
+
+        .inventory-table th {
+            background: var(--mid-grey);
+            color: var(--neon-green);
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .inventory-table tr:hover {
+            background: var(--mid-grey);
+        }
+
+        /* Delivery View */
+        .delivery-view {
+            padding: 2rem 5%;
+        }
+
+        .order-queue {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .order-card {
+            background: var(--dark-grey);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--mid-grey);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .order-card:hover {
+            border-color: var(--neon-green);
+        }
+
+        .order-info h3 {
+            color: var(--neon-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .accept-btn,
+        .decline-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .accept-btn {
+            background: var(--neon-green);
+            color: var(--black);
+        }
+
+        .accept-btn:hover {
+            box-shadow: 0 0 20px var(--green-glow);
+        }
+
+        .decline-btn {
+            background: transparent;
+            color: var(--light-grey);
+            border: 1px solid var(--mid-grey);
+        }
+
+        .decline-btn:hover {
+            border-color: #ff0040;
+            color: #ff0040;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--light-grey);
+        }
+
+        .spinner {
+            border: 3px solid var(--mid-grey);
+            border-top: 3px solid var(--neon-green);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-images {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .role-selection {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">REALPLATE</div>
+        <div class="nav-links">
+            <button class="nav-btn" id="logoutBtn" style="display: none;">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Landing View -->
+    <div class="view active" id="landingView">
+        <div class="landing">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>
+                            Experience<br>
+                            <span class="accent">REAL</span> Food<br>
+                            Delivery
+                        </h1>
+                        <p>
+                            Dynamic inventory system ensuring every dish is fresh and available. 
+                            Real-time stock tracking, instant updates, and a seamless ordering experience.
+                        </p>
+                    </div>
+                    <div class="hero-images">
+                        <div class="hero-image-card">
+                            <img src="burger.jpg" alt="Burger">
+                        </div>
+                        <div class="hero-image-card">
+                            <img src="biriyani.jpg" alt="Biryani">
+                        </div>
+                        <div class="hero-image-card">
+                            <img src="icecream.jpg" alt="Ice Cream">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="access-section">
+                <div class="access-container">
+                    <h2 class="access-title">SYSTEM ACCESS REQUIRED</h2>
+                    <p class="access-subtitle">Select your role to continue</p>
+                    
+                    <div class="role-selection">
+                        <div class="role-card" onclick="switchView('customer')">
+                            <div class="role-icon">🍽️</div>
+                            <h3>CUSTOMER</h3>
+                            <p>Browse menu, place orders, track delivery</p>
+                        </div>
+                        <div class="role-card" onclick="switchView('admin')">
+                            <div class="role-icon">⚙️</div>
+                            <h3>ADMIN</h3>
+                            <p>Manage inventory, view analytics, update menu</p>
+                        </div>
+                        <div class="role-card" onclick="switchView('delivery')">
+                            <div class="role-icon">🚚</div>
+                            <h3>DELIVERY AGENT</h3>
+                            <p>View orders, accept deliveries, update status</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Customer View -->
+    <div class="view" id="customerView">
+        <div class="customer-view">
+            <div class="page-header">
+                <h2>LIVE MENU</h2>
+                <p style="color: var(--light-grey);">Real-time inventory tracking • Only available items shown</p>
+            </div>
+            <div class="menu-grid" id="menuGrid">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading menu items...</p>
+                </div>
+            </div>
+        </div>
+        <div class="cart-icon" onclick="viewCart()">
+            🛒
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </div>
+
+    <!-- Admin View -->
+    <div class="view" id="adminView">
+        <div class="admin-view">
+            <div class="page-header">
+                <h2>ADMIN DASHBOARD</h2>
+                <p style="color: var(--light-grey);">Inventory Management • Real-time Updates</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalOrders">156</div>
+                    <div class="stat-label">Total Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="activeItems">24</div>
+                    <div class="stat-label">Active Menu Items</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="lowStock">3</div>
+                    <div class="stat-label">Low Stock Alerts</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--neon-green); font-family: 'Oswald', sans-serif; margin-bottom: 1rem;">INVENTORY STATUS</h3>
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Ingredient</th>
+                        <th>Current Stock</th>
+                        <th>Unit</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="inventoryTable">
+                    <tr>
+                        <td>Tomatoes</td>
+                        <td>50</td>
+                        <td>kg</td>
+                        <td style="color: var(--neon-green);">✓ In Stock</td>
+                    </tr>
+                    <tr>
+                        <td>Chicken Breast</td>
+                        <td>15</td>
+                        <td>kg</td>
+                        <td style="color: var(--neon-green);">✓ In Stock</td>
+                    </tr>
+                    <tr>
+                        <td>Basmati Rice</td>
+                        <td>5</td>
+                        <td>kg</td>
+                        <td style="color: #ff0040;">⚠ Low Stock</td>
+                    </tr>
+                    <tr>
+                        <td>Cheese</td>
+                        <td>20</td>
+                        <td>kg</td>
+                        <td style="color: var(--neon-green);">✓ In Stock</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Delivery View -->
+    <div class="view" id="deliveryView">
+        <div class="delivery-view">
+            <div class="page-header">
+                <h2>DELIVERY QUEUE</h2>
+                <p style="color: var(--light-grey);">Active orders • Accept or decline assignments</p>
+            </div>
+
+            <div class="order-queue">
+                <div class="order-card">
+                    <div class="order-info">
+                        <h3>Order #1247</h3>
+                        <p style="color: var(--light-grey);">Customer: John Doe • Address: 123 Main St, Bhubaneswar</p>
+                        <p style="color: var(--white); margin-top: 0.5rem;">Items: 2x Chicken Biryani, 1x Paneer Tikka</p>
+                    </div>
+                    <div class="order-actions">
+                        <button class="accept-btn" onclick="acceptOrder(1247)">Accept</button>
+                        <button class="decline-btn" onclick="declineOrder(1247)">Decline</button>
+                    </div>
+                </div>
+
+                <div class="order-card">
+                    <div class="order-info">
+                        <h3>Order #1248</h3>
+                        <p style="color: var(--light-grey);">Customer: Sarah Smith • Address: 456 Park Avenue, Bhubaneswar</p>
+                        <p style="color: var(--white); margin-top: 0.5rem;">Items: 1x Burger Deluxe, 2x Fries</p>
+                    </div>
+                    <div class="order-actions">
+                        <button class="accept-btn" onclick="acceptOrder(1248)">Accept</button>
+                        <button class="decline-btn" onclick="declineOrder(1248)">Decline</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data - In production, this would come from backend API
+        const menuItems = [
+            { id: 1, name: 'Chicken Biryani', desc: 'Aromatic basmati rice with tender chicken', price: 299, emoji: '🍛', available: true },
+            { id: 2, name: 'Paneer Tikka', desc: 'Grilled cottage cheese with spices', price: 249, emoji: '🧀', available: true },
+            { id: 3, name: 'Butter Chicken', desc: 'Creamy tomato curry with chicken', price: 349, emoji: '🍗', available: false },
+            { id: 4, name: 'Masala Dosa', desc: 'Crispy rice crepe with potato filling', price: 149, emoji: '🥞', available: true },
+            { id: 5, name: 'Veg Fried Rice', desc: 'Stir-fried rice with vegetables', price: 179, emoji: '🍚', available: true },
+            { id: 6, name: 'Burger Deluxe', desc: 'Premium beef burger with cheese', price: 229, emoji: '🍔', available: true },
+        ];
+
+        let cart = [];
+        let currentView = 'landing';
+
+        function switchView(view) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            
+            if (view === 'customer') {
+                document.getElementById('customerView').classList.add('active');
+                document.getElementById('logoutBtn').style.display = 'block';
+                loadMenu();
+                currentView = 'customer';
+            } else if (view === 'admin') {
+                document.getElementById('adminView').classList.add('active');
+                document.getElementById('logoutBtn').style.display = 'block';
+                currentView = 'admin';
+            } else if (view === 'delivery') {
+                document.getElementById('deliveryView').classList.add('active');
+                document.getElementById('logoutBtn').style.display = 'block';
+                currentView = 'delivery';
+            } else {
+                document.getElementById('landingView').classList.add('active');
+                document.getElementById('logoutBtn').style.display = 'none';
+                currentView = 'landing';
+            }
+        }
+
+        function loadMenu() {
+            const menuGrid = document.getElementById('menuGrid');
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                menuGrid.innerHTML = menuItems.map(item => `
+                    <div class="menu-item">
+                        ${!item.available ? '<div class="out-of-stock-overlay">OUT OF STOCK</div>' : ''}
+                        <div class="menu-item-image">
+                            <span style="font-size: 5rem;">${item.emoji}</span>
+                            ${item.available ? 
+                                '<span class="stock-badge">Available</span>' : 
+                                '<span class="stock-badge out">Out of Stock</span>'
+                            }
+                        </div>
+                        <div class="menu-item-content">
+                            <h3 class="menu-item-name">${item.name}</h3>
+                            <p class="menu-item-desc">${item.desc}</p>
+                            <div class="menu-item-footer">
+                                <span class="price">₹${item.price}</span>
+                                <button class="add-btn" 
+                                    onclick="addToCart(${item.id})" 
+                                    ${!item.available ? 'disabled' : ''}>
+                                    ${item.available ? 'Add to Cart' : 'Unavailable'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }, 800);
+        }
+
+        function addToCart(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            if (!item || !item.available) return;
+            
+            const existingItem = cart.find(i => i.id === itemId);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
+            
+            updateCartCount();
+            showNotification(`${item.name} added to cart!`);
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        function viewCart() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const itemsList = cart.map(item => 
+                `${item.quantity}x ${item.name} - ₹${item.price * item.quantity}`
+            ).join('\n');
+            
+            if (confirm(`Your Cart:\n\n${itemsList}\n\nTotal: ₹${total}\n\nProceed to checkout?`)) {
+                placeOrder();
+            }
+        }
+
+        function placeOrder() {
+            // Simulate API call to backend
+            showNotification('Order placed successfully! 🎉');
+            cart = [];
+            updateCartCount();
+        }
+
+        function acceptOrder(orderId) {
+            showNotification(`Order #${orderId} accepted! Navigate to pickup location.`);
+            // In production: API call to update order status
+        }
+
+        function declineOrder(orderId) {
+            showNotification(`Order #${orderId} declined.`);
+            // In production: API call to decline order
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 2rem;
+                background: var(--neon-green);
+                color: var(--black);
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                box-shadow: 0 5px 20px var(--green-glow);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            cart = [];
+            updateCartCount();
+            switchView('landing');
+        });
+
+        // Add animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize
+        updateCartCount();
+    </script>
+</body>
+</html>
