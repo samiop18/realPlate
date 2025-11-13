@@ -454,7 +454,7 @@
             background: var(--neon-green);
             color: var(--black);
             border-radius: 50%;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
@@ -462,6 +462,10 @@
             box-shadow: 0 5px 20px var(--green-glow);
             transition: all 0.3s;
             z-index: 999;
+        }
+
+        .cart-icon.visible {
+            display: flex;
         }
 
         .cart-icon:hover {
@@ -483,6 +487,210 @@
             justify-content: center;
             font-size: 0.8rem;
             font-weight: 700;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .cart-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .cart-content {
+            background: var(--dark-grey);
+            border: 2px solid var(--neon-green);
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .cart-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--mid-grey);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--dark-grey);
+            z-index: 1;
+        }
+
+        .cart-header h2 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--neon-green);
+            font-size: 2rem;
+        }
+
+        .close-cart {
+            background: transparent;
+            border: none;
+            color: var(--light-grey);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-cart:hover {
+            color: #ff0040;
+            transform: rotate(90deg);
+        }
+
+        .cart-items {
+            padding: 2rem;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--mid-grey);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .cart-item-emoji {
+            font-size: 2.5rem;
+        }
+
+        .cart-item-details h4 {
+            color: var(--white);
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .cart-item-details p {
+            color: var(--light-grey);
+            font-size: 0.9rem;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-end;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--dark-grey);
+            padding: 0.3rem;
+            border-radius: 4px;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            background: var(--neon-green);
+            color: var(--black);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .qty-btn:hover {
+            box-shadow: 0 0 10px var(--green-glow);
+        }
+
+        .qty-display {
+            color: var(--white);
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .item-price {
+            color: var(--neon-green);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--light-grey);
+        }
+
+        .cart-empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .cart-footer {
+            padding: 2rem;
+            border-top: 2px solid var(--mid-grey);
+            position: sticky;
+            bottom: 0;
+            background: var(--dark-grey);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .cart-total-label {
+            color: var(--light-grey);
+            font-weight: 600;
+        }
+
+        .cart-total-amount {
+            color: var(--neon-green);
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--neon-green);
+            color: var(--black);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            box-shadow: 0 0 30px var(--green-glow);
+            transform: translateY(-2px);
         }
 
         /* Admin View */
@@ -524,6 +732,39 @@
             letter-spacing: 1px;
         }
 
+        .admin-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--neon-green);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+        }
+
+        .add-ingredient-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--neon-green);
+            color: var(--black);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .add-ingredient-btn:hover {
+            box-shadow: 0 0 20px var(--green-glow);
+        }
+
         .inventory-table {
             width: 100%;
             background: var(--dark-grey);
@@ -551,9 +792,147 @@
             background: var(--mid-grey);
         }
 
+        .ingredient-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .edit-btn, .delete-btn, .cook-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .edit-btn {
+            background: var(--neon-green);
+            color: var(--black);
+        }
+
+        .delete-btn {
+            background: #ff0040;
+            color: var(--white);
+        }
+
+        .cook-btn {
+            background: var(--mid-grey);
+            color: var(--white);
+            border: 1px solid var(--neon-green);
+        }
+
+        .cook-btn:hover {
+            background: var(--neon-green);
+            color: var(--black);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: var(--dark-grey);
+            border: 2px solid var(--neon-green);
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            padding: 2rem;
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--neon-green);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--light-grey);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--mid-grey);
+            border: 1px solid var(--mid-grey);
+            border-radius: 4px;
+            color: var(--white);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--green-glow);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .cancel-btn, .save-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .cancel-btn {
+            background: transparent;
+            color: var(--light-grey);
+            border: 1px solid var(--mid-grey);
+        }
+
+        .save-btn {
+            background: var(--neon-green);
+            color: var(--black);
+        }
+
+        .save-btn:hover {
+            box-shadow: 0 0 20px var(--green-glow);
+        }
+
         /* Delivery View */
         .delivery-view {
             padding: 2rem 5%;
+        }
+
+        .delivery-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
         }
 
         .order-queue {
@@ -616,6 +995,49 @@
         .decline-btn:hover {
             border-color: #ff0040;
             color: #ff0040;
+        }
+
+        .map-container {
+            background: var(--dark-grey);
+            border: 2px solid var(--mid-grey);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 600px;
+            position: sticky;
+            top: 100px;
+        }
+
+        .map-header {
+            padding: 1.5rem;
+            background: var(--mid-grey);
+            border-bottom: 2px solid var(--neon-green);
+        }
+
+        .map-header h3 {
+            color: var(--neon-green);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: calc(100% - 70px);
+            border: none;
+            background: var(--mid-grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-grey);
+        }
+
+        .map-placeholder {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .map-placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
         }
 
         /* Loading */
@@ -721,17 +1143,17 @@
                     
                     <div class="role-selection">
                         <div class="role-card" onclick="switchView('customer')">
-                            <div class="role-icon">🍽️</div>
+                            <div class="role-icon">👤</div>
                             <h3>CUSTOMER</h3>
                             <p>Browse menu, place orders, track delivery</p>
                         </div>
                         <div class="role-card" onclick="switchView('admin')">
-                            <div class="role-icon">⚙️</div>
+                            <div class="role-icon">⚡</div>
                             <h3>ADMIN</h3>
                             <p>Manage inventory, view analytics, update menu</p>
                         </div>
                         <div class="role-card" onclick="switchView('delivery')">
-                            <div class="role-icon">🚚</div>
+                            <div class="role-icon">📦</div>
                             <h3>DELIVERY AGENT</h3>
                             <p>View orders, accept deliveries, update status</p>
                         </div>
@@ -755,9 +1177,29 @@
                 </div>
             </div>
         </div>
-        <div class="cart-icon" onclick="viewCart()">
+        <div class="cart-icon" onclick="toggleCart()">
             🛒
             <span class="cart-count" id="cartCount">0</span>
+        </div>
+
+        <!-- Cart Modal -->
+        <div class="cart-modal" id="cartModal">
+            <div class="cart-content">
+                <div class="cart-header">
+                    <h2>YOUR CART</h2>
+                    <button class="close-cart" onclick="toggleCart()">×</button>
+                </div>
+                <div class="cart-items" id="cartItemsContainer">
+                    <!-- Cart items will be dynamically inserted here -->
+                </div>
+                <div class="cart-footer" id="cartFooter" style="display: none;">
+                    <div class="cart-total">
+                        <span class="cart-total-label">Total Amount:</span>
+                        <span class="cart-total-amount" id="cartTotalAmount">₹0</span>
+                    </div>
+                    <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -784,43 +1226,76 @@
                 </div>
             </div>
 
-            <h3 style="color: var(--neon-green); font-family: 'Oswald', sans-serif; margin-bottom: 1rem;">INVENTORY STATUS</h3>
-            <table class="inventory-table">
-                <thead>
-                    <tr>
-                        <th>Ingredient</th>
-                        <th>Current Stock</th>
-                        <th>Unit</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="inventoryTable">
-                    <tr>
-                        <td>Tomatoes</td>
-                        <td>50</td>
-                        <td>kg</td>
-                        <td style="color: var(--neon-green);">✓ In Stock</td>
-                    </tr>
-                    <tr>
-                        <td>Chicken Breast</td>
-                        <td>15</td>
-                        <td>kg</td>
-                        <td style="color: var(--neon-green);">✓ In Stock</td>
-                    </tr>
-                    <tr>
-                        <td>Basmati Rice</td>
-                        <td>5</td>
-                        <td>kg</td>
-                        <td style="color: #ff0040;">⚠ Low Stock</td>
-                    </tr>
-                    <tr>
-                        <td>Cheese</td>
-                        <td>20</td>
-                        <td>kg</td>
-                        <td style="color: var(--neon-green);">✓ In Stock</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="admin-section">
+                <div class="section-header">
+                    <h3 class="section-title">INVENTORY STATUS</h3>
+                    <button class="add-ingredient-btn" onclick="openAddIngredientModal()">+ Add Ingredient</button>
+                </div>
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Current Stock</th>
+                            <th>Unit</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTable">
+                        <!-- Dynamically populated -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add/Edit Ingredient Modal -->
+        <div class="modal" id="ingredientModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Add Ingredient</h3>
+                </div>
+                <form id="ingredientForm">
+                    <div class="form-group">
+                        <label>Ingredient Name</label>
+                        <input type="text" id="ingredientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" id="ingredientQty" required min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Unit</label>
+                        <input type="text" id="ingredientUnit" required placeholder="kg, liters, pieces">
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="cancel-btn" onclick="closeIngredientModal()">Cancel</button>
+                        <button type="submit" class="save-btn">Save Ingredient</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Cook Ingredient Modal -->
+        <div class="modal" id="cookModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Cook/Use Ingredient</h3>
+                </div>
+                <form id="cookForm">
+                    <div class="form-group">
+                        <label id="cookIngredientLabel">Ingredient</label>
+                        <p style="color: var(--light-grey); margin-top: 0.5rem;" id="currentStockDisplay"></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity to Use</label>
+                        <input type="number" id="cookQty" required min="1">
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="cancel-btn" onclick="closeCookModal()">Cancel</button>
+                        <button type="submit" class="save-btn">Confirm Usage</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -832,29 +1307,24 @@
                 <p style="color: var(--light-grey);">Active orders • Accept or decline assignments</p>
             </div>
 
-            <div class="order-queue">
-                <div class="order-card">
-                    <div class="order-info">
-                        <h3>Order #1247</h3>
-                        <p style="color: var(--light-grey);">Customer: John Doe • Address: 123 Main St, Bhubaneswar</p>
-                        <p style="color: var(--white); margin-top: 0.5rem;">Items: 2x Chicken Biryani, 1x Paneer Tikka</p>
-                    </div>
-                    <div class="order-actions">
-                        <button class="accept-btn" onclick="acceptOrder(1247)">Accept</button>
-                        <button class="decline-btn" onclick="declineOrder(1247)">Decline</button>
+            <div class="delivery-content">
+                <div>
+                    <h3 style="color: var(--neon-green); font-family: 'Oswald', sans-serif; margin-bottom: 1rem;">PENDING ORDERS</h3>
+                    <div class="order-queue" id="orderQueue">
+                        <!-- Orders will be dynamically loaded -->
                     </div>
                 </div>
 
-                <div class="order-card">
-                    <div class="order-info">
-                        <h3>Order #1248</h3>
-                        <p style="color: var(--light-grey);">Customer: Sarah Smith • Address: 456 Park Avenue, Bhubaneswar</p>
-                        <p style="color: var(--white); margin-top: 0.5rem;">Items: 1x Burger Deluxe, 2x Fries</p>
+                <div class="map-container">
+                    <div class="map-header">
+                        <h3>LIVE TRACKING</h3>
                     </div>
-                    <div class="order-actions">
-                        <button class="accept-btn" onclick="acceptOrder(1248)">Accept</button>
-                        <button class="decline-btn" onclick="declineOrder(1248)">Decline</button>
-                    </div>
+                    <iframe 
+                        class="map-frame" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119795.02059194279!2d85.73885659726562!3d20.296058800000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1909d2d5170aa5%3A0xfc580e2b68b33fa8!2sBhubaneswar%2C%20Odisha!5e0!3m2!1sen!2sin!4v1234567890"
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -873,26 +1343,48 @@
 
         let cart = [];
         let currentView = 'landing';
+        let inventory = [
+            { id: 1, name: 'Tomatoes', qty: 50, unit: 'kg' },
+            { id: 2, name: 'Chicken Breast', qty: 15, unit: 'kg' },
+            { id: 3, name: 'Basmati Rice', qty: 5, unit: 'kg' },
+            { id: 4, name: 'Cheese', qty: 20, unit: 'kg' },
+            { id: 5, name: 'Onions', qty: 30, unit: 'kg' },
+        ];
+        let editingIngredientId = null;
+        let cookingIngredientId = null;
+
+        let deliveryOrders = [
+            { id: 1247, customer: 'John Doe', address: '123 Main St, Bhubaneswar', items: '2x Chicken Biryani, 1x Paneer Tikka' },
+            { id: 1248, customer: 'Sarah Smith', address: '456 Park Avenue, Bhubaneswar', items: '1x Burger Deluxe, 2x Fries' },
+            { id: 1249, customer: 'Mike Johnson', address: '789 Lake View, Bhubaneswar', items: '3x Masala Dosa, 2x Veg Fried Rice' },
+        ];
 
         function switchView(view) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            const cartIcon = document.querySelector('.cart-icon');
             
             if (view === 'customer') {
                 document.getElementById('customerView').classList.add('active');
                 document.getElementById('logoutBtn').style.display = 'block';
+                cartIcon.classList.add('visible');
                 loadMenu();
                 currentView = 'customer';
             } else if (view === 'admin') {
                 document.getElementById('adminView').classList.add('active');
                 document.getElementById('logoutBtn').style.display = 'block';
+                cartIcon.classList.remove('visible');
+                loadInventory();
                 currentView = 'admin';
             } else if (view === 'delivery') {
                 document.getElementById('deliveryView').classList.add('active');
                 document.getElementById('logoutBtn').style.display = 'block';
+                cartIcon.classList.remove('visible');
+                loadDeliveryOrders();
                 currentView = 'delivery';
             } else {
                 document.getElementById('landingView').classList.add('active');
                 document.getElementById('logoutBtn').style.display = 'none';
+                cartIcon.classList.remove('visible');
                 currentView = 'landing';
             }
         }
@@ -900,7 +1392,6 @@
         function loadMenu() {
             const menuGrid = document.getElementById('menuGrid');
             
-            // Simulate API call delay
             setTimeout(() => {
                 menuGrid.innerHTML = menuItems.map(item => `
                     <div class="menu-item">
@@ -942,6 +1433,7 @@
             
             updateCartCount();
             showNotification(`${item.name} added to cart!`);
+            renderCart();
         }
 
         function updateCartCount() {
@@ -949,37 +1441,221 @@
             document.getElementById('cartCount').textContent = count;
         }
 
-        function viewCart() {
-            if (cart.length === 0) {
-                showNotification('Your cart is empty!');
-                return;
-            }
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const itemsList = cart.map(item => 
-                `${item.quantity}x ${item.name} - ₹${item.price * item.quantity}`
-            ).join('\n');
-            
-            if (confirm(`Your Cart:\n\n${itemsList}\n\nTotal: ₹${total}\n\nProceed to checkout?`)) {
-                placeOrder();
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('active');
+            if (modal.classList.contains('active')) {
+                renderCart();
             }
         }
 
-        function placeOrder() {
-            // Simulate API call to backend
-            showNotification('Order placed successfully! 🎉');
+        function renderCart() {
+            const container = document.getElementById('cartItemsContainer');
+            const footer = document.getElementById('cartFooter');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛒</div>
+                        <h3 style="color: var(--light-grey); margin-bottom: 0.5rem;">Your cart is empty</h3>
+                        <p style="color: var(--light-grey); font-size: 0.9rem;">Add some delicious items to get started!</p>
+                    </div>
+                `;
+                footer.style.display = 'none';
+                return;
+            }
+
+            container.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <div class="cart-item-emoji">${item.emoji}</div>
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p>₹${item.price} each</p>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="decreaseQty(${index})">-</button>
+                            <span class="qty-display">${item.quantity}</span>
+                            <button class="qty-btn" onclick="increaseQty(${index})">+</button>
+                        </div>
+                        <div class="item-price">₹${item.price * item.quantity}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cartTotalAmount').textContent = `₹${total}`;
+            footer.style.display = 'block';
+        }
+
+        function increaseQty(index) {
+            cart[index].quantity++;
+            updateCartCount();
+            renderCart();
+        }
+
+        function decreaseQty(index) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity--;
+            } else {
+                cart.splice(index, 1);
+            }
+            updateCartCount();
+            renderCart();
+        }
+
+        function proceedToCheckout() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            showNotification(`Order placed successfully! Total: ₹${total} 🎉`);
             cart = [];
             updateCartCount();
+            renderCart();
+            toggleCart();
+        }
+
+        // Admin Functions
+        function loadInventory() {
+            const table = document.getElementById('inventoryTable');
+            table.innerHTML = inventory.map(item => {
+                const status = item.qty < 10 ? 
+                    '<td style="color: #ff0040;">⚠ Low Stock</td>' : 
+                    '<td style="color: var(--neon-green);">✓ In Stock</td>';
+                
+                return `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.qty}</td>
+                        <td>${item.unit}</td>
+                        ${status}
+                        <td>
+                            <div class="ingredient-actions">
+                                <button class="edit-btn" onclick="editIngredient(${item.id})">Edit</button>
+                                <button class="cook-btn" onclick="openCookModal(${item.id})">Use</button>
+                                <button class="delete-btn" onclick="deleteIngredient(${item.id})">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function openAddIngredientModal() {
+            editingIngredientId = null;
+            document.getElementById('modalTitle').textContent = 'Add Ingredient';
+            document.getElementById('ingredientForm').reset();
+            document.getElementById('ingredientModal').classList.add('active');
+        }
+
+        function closeIngredientModal() {
+            document.getElementById('ingredientModal').classList.remove('active');
+        }
+
+        function editIngredient(id) {
+            const ingredient = inventory.find(i => i.id === id);
+            if (!ingredient) return;
+
+            editingIngredientId = id;
+            document.getElementById('modalTitle').textContent = 'Edit Ingredient';
+            document.getElementById('ingredientName').value = ingredient.name;
+            document.getElementById('ingredientQty').value = ingredient.qty;
+            document.getElementById('ingredientUnit').value = ingredient.unit;
+            document.getElementById('ingredientModal').classList.add('active');
+        }
+
+        function deleteIngredient(id) {
+            if (confirm('Are you sure you want to delete this ingredient?')) {
+                inventory = inventory.filter(i => i.id !== id);
+                loadInventory();
+                showNotification('Ingredient deleted successfully!');
+            }
+        }
+
+        function openCookModal(id) {
+            const ingredient = inventory.find(i => i.id === id);
+            if (!ingredient) return;
+
+            cookingIngredientId = id;
+            document.getElementById('cookIngredientLabel').textContent = ingredient.name;
+            document.getElementById('currentStockDisplay').textContent = `Current stock: ${ingredient.qty} ${ingredient.unit}`;
+            document.getElementById('cookQty').max = ingredient.qty;
+            document.getElementById('cookModal').classList.add('active');
+        }
+
+        function closeCookModal() {
+            document.getElementById('cookModal').classList.remove('active');
+            document.getElementById('cookForm').reset();
+        }
+
+        document.getElementById('ingredientForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('ingredientName').value;
+            const qty = parseFloat(document.getElementById('ingredientQty').value);
+            const unit = document.getElementById('ingredientUnit').value;
+
+            if (editingIngredientId) {
+                const ingredient = inventory.find(i => i.id === editingIngredientId);
+                ingredient.name = name;
+                ingredient.qty = qty;
+                ingredient.unit = unit;
+                showNotification('Ingredient updated successfully!');
+            } else {
+                const newId = Math.max(...inventory.map(i => i.id), 0) + 1;
+                inventory.push({ id: newId, name, qty, unit });
+                showNotification('Ingredient added successfully!');
+            }
+
+            loadInventory();
+            closeIngredientModal();
+        });
+
+        document.getElementById('cookForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const qtyToUse = parseFloat(document.getElementById('cookQty').value);
+            const ingredient = inventory.find(i => i.id === cookingIngredientId);
+            
+            if (qtyToUse > ingredient.qty) {
+                showNotification('Not enough stock available!');
+                return;
+            }
+
+            ingredient.qty -= qtyToUse;
+            loadInventory();
+            closeCookModal();
+            showNotification(`Used ${qtyToUse} ${ingredient.unit} of ${ingredient.name}`);
+        });
+
+        // Delivery Functions
+        function loadDeliveryOrders() {
+            const queue = document.getElementById('orderQueue');
+            queue.innerHTML = deliveryOrders.map(order => `
+                <div class="order-card" id="order-${order.id}">
+                    <div class="order-info">
+                        <h3>Order #${order.id}</h3>
+                        <p style="color: var(--light-grey);">Customer: ${order.customer} • Address: ${order.address}</p>
+                        <p style="color: var(--white); margin-top: 0.5rem;">Items: ${order.items}</p>
+                    </div>
+                    <div class="order-actions">
+                        <button class="accept-btn" onclick="acceptOrder(${order.id})">Accept</button>
+                        <button class="decline-btn" onclick="declineOrder(${order.id})">Decline</button>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function acceptOrder(orderId) {
             showNotification(`Order #${orderId} accepted! Navigate to pickup location.`);
-            // In production: API call to update order status
+            deliveryOrders = deliveryOrders.filter(o => o.id !== orderId);
+            document.getElementById(`order-${orderId}`).style.animation = 'slideOut 0.3s ease-out';
+            setTimeout(() => loadDeliveryOrders(), 300);
         }
 
         function declineOrder(orderId) {
             showNotification(`Order #${orderId} declined.`);
-            // In production: API call to decline order
+            deliveryOrders = deliveryOrders.filter(o => o.id !== orderId);
+            document.getElementById(`order-${orderId}`).style.animation = 'slideOut 0.3s ease-out';
+            setTimeout(() => loadDeliveryOrders(), 300);
         }
 
         function showNotification(message) {
